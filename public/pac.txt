@@ -1,0 +1,29 @@
+function FindProxyForURL(url, host) {
+    // 需要走代理的域名列表
+    var proxyDomains = [
+        "microsoft.com",
+        "windows.com",
+        "office.com",
+        "live.com",
+        "outlook.com",
+        "azure.com",
+        "sharepoint.com",
+        "skype.com",
+        "bing.com",
+        "msn.com",
+        "notion.site",
+        "notion.so",
+        "github.com",       // 例如 GitHub
+        "ip-api.com"       // 你可以繼續添加其他域名
+    ];
+
+    // 判斷 host 是否在代理域名列表中
+    for (var i = 0; i < proxyDomains.length; i++) {
+        if (dnsDomainIs(host, proxyDomains[i]) || shExpMatch(host, "*" + proxyDomains[i])) {
+            return "PROXY 127.0.0.1:10808";  // 請替換成你的代理地址和端口
+        }
+    }
+
+    // 其他全部直連
+    return "DIRECT";
+}
